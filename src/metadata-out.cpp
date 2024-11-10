@@ -22,6 +22,8 @@ void outputMetadata(const std::vector<std::pair<std::filesystem::path, RpyMetada
             oss << "File: " << filePath.filename().string() << "\n";
             oss << "userId: " << metadata.userId << "\n";
             oss << "sessionId: " << metadata.sessionId << "\n";
+            oss << "subsessionId: " << metadata.subsessionId << "\n";
+            oss << "host: " << metadata.host << "\n";
             oss << "track: " << metadata.track << "\n";
             oss << "layout: " << metadata.layout << "\n";
             oss << "userName: " << metadata.userName << "\n";
@@ -34,9 +36,11 @@ void outputMetadata(const std::vector<std::pair<std::filesystem::path, RpyMetada
     }
 
     // TODO: User these tags
+    // {"%h", "host/server"}
     // {"%n", "file_name"},
     // {"%u", "user_id"},
-    // {"%s", "session_id"},
+    // {"%S", "session_id"},
+    // {"%s", "subsession_id"},
     // {"%t", "track"},
     // {"%l", "layout"},
     // {"%U", "user_name"},
