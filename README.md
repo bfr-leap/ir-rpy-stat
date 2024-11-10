@@ -17,3 +17,8 @@
    git clone https://github.com/yourusername/ir-rpy-stat.git
    cd ir-rpy-stat
    ```
+ - **Dependencies**:
+    ```bash
+    sudo apt-get install libcxxopts-dev
+    sudo apt-get install lcov
+    ```
