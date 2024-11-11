@@ -12,7 +12,10 @@
 ## Usage Documentation
 For usage details, visit the [manpage](man.md).
 
-## Installation
+## Download
+Download the latest Windows build [here](https://drive.google.com/drive/folders/1b48sz6bzyewh9giYjQvVewi7RcPYMrva?usp=drive_link)
+
+## Local Development
 
  - **Clone the repository**:
 
@@ -22,6 +25,10 @@ For usage details, visit the [manpage](man.md).
    ```
  - **Dependencies**:
     ```bash
-    sudo apt-get install libcxxopts-dev
+    # For Linux
     sudo apt-get install lcov
+    ```
+ - **Unit Tests**
+    ```bash
+    ./build-and-test.sh
     ```
