@@ -9,6 +9,9 @@
 - Filter output to show only specific metadata fields
 - Compact view mode for essential fields
 
+## Usage Documentation
+For usage details, visit the [manpage](man.md).
+
 ## Installation
 
  - **Clone the repository**:

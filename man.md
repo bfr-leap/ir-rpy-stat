@@ -32,6 +32,8 @@ The `ir-rpy-stat` command displays metadata for `.rpy` replay files from iRacing
     | %s        | Subsession Id         |
     | %T        | Track                 |
     | %t        | Timestamp             |
+    | %U        | User Name             |
+    | %u        | User Id               |
     | %%	    | Literal `%` character |
 
     **Example:**
@@ -83,6 +85,8 @@ The `ir-rpy-stat` command displays metadata for `.rpy` replay files from iRacing
 | %s        | Subsession Id         |
 | %T        | Track                 |
 | %t        | Timestamp             |
+| %U        | User Name             |
+| %u        | User Id               |
 | %%	    | Literal `%` character |
 
 ## EXIT STATUS
