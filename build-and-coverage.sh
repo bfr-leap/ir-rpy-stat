@@ -3,8 +3,6 @@
 if [[ "$OSTYPE" == "msys" || "$OSTYPE" == "win32" || "$OSTYPE" == "cygwin" ]]; then
     echo "Coverage not supported on Windows..."
 
-    ./build/Release/test-ir-rpy-stat.tsk
-
 else
     echo "Coverage on Linux..."
 
