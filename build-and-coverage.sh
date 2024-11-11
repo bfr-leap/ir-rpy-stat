@@ -1,9 +1,17 @@
 #!/bin/bash
 
-#./build.sh
+if [[ "$OSTYPE" == "msys" || "$OSTYPE" == "win32" || "$OSTYPE" == "cygwin" ]]; then
+    echo "Coverage not supported on Windows..."
 
-cmake -B build -DCOVERAGE=ON -DCMAKE_BUILD_TYPE=Debug
-cmake --build build
+    ./build/Release/test-ir-rpy-stat.tsk
 
-ctest -C Debug --test-dir build
-cmake --build build --target coverage
+else
+    echo "Coverage on Linux..."
+
+    cmake -B build -DCOVERAGE=ON -DCMAKE_BUILD_TYPE=Debug
+    cmake --build build
+
+    ctest -C Debug --test-dir build
+    cmake --build build --target coverage
+fi
+
