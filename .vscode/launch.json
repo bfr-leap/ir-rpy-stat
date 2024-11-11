@@ -22,7 +22,7 @@
             "preLaunchTask": "build",
             "miDebuggerPath": "/usr/bin/gdb",
             "windows": {
-                "program": "${workspaceFolder}/build/Debug/ir-rpy-stat.exe",
+                "program": "${workspaceFolder}/build/Debug/ir-rpy-stat.tsk.exe",
             }
         },
         {
@@ -72,7 +72,7 @@
             "preLaunchTask": "build",
             "miDebuggerPath": "/usr/bin/gdb",
             "windows": {
-                "program": "${workspaceFolder}/build/Debug/test-ir-rpy-stat.exe",
+                "program": "${workspaceFolder}/build/Debug/test-ir-rpy-stat.tsk.exe",
             }
         }
     ]
