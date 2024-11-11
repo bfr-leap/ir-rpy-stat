@@ -114,7 +114,11 @@ TEST(findFilesToProcess, DevNull)
     EXPECT_EQ(files.size(), 0);
 
     const char *expectedOut = "";
+#ifdef _WIN32
+    const char *expectedErr = "Warning: File does not exist: \"/dev/null\"\n";
+#else
     const char *expectedErr = "Warning: Unsupported file type: \"/dev/null\"\n";
+#endif
 
     EXPECT_EQ(stdoutstrm.str(), expectedOut);
     EXPECT_EQ(stderrstrm.str(), expectedErr);
