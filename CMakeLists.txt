@@ -38,6 +38,7 @@ add_executable(
     test-ir-rpy-stat.tsk
 
     tests/hello.t.cpp
+    tests/metadata-out.output-format-metadata.t.cpp
     tests/options-parser.find-files-to-process.t.cpp
     tests/options-parser.load-options.t.cpp
 

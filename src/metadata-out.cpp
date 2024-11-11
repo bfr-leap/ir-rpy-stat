@@ -1,10 +1,99 @@
 #include "metadata-out.h"
-#include <iostream>
+#include <ostream>
 
-void outputMetadata(const std::vector<std::pair<std::filesystem::path, RpyMetadata>> &metadataList, const cxxopts::ParseResult &args)
+enum FormatterState
 {
-    std::ostringstream oss;
+    FMST_PASSTHROUGH,
+    FMST_SLASH,
+    FMST_PERCENT
+};
 
+void outputFormatMetadata(RpyMetadata &metadata, const char *fileName, const char *format, std::ostream &stdout)
+{
+    int i = 0;
+    char c = format[i++];
+    auto state = FMST_PASSTHROUGH;
+
+    while (c)
+    {
+        switch (state)
+        {
+        case FMST_PASSTHROUGH:
+            if ('\\' == c)
+            {
+                state = FMST_SLASH;
+            }
+            else if ('%' == c)
+            {
+                state = FMST_PERCENT;
+            }
+            else
+            {
+                stdout << c;
+            }
+            break;
+        case FMST_SLASH:
+            switch (c)
+            {
+            case 'n':
+                stdout << std::endl;
+                break;
+            case 't':
+                stdout << '\t';
+            }
+            state = FMST_PASSTHROUGH;
+            break;
+
+        case FMST_PERCENT:
+            switch (c)
+            {
+            case 'c':
+                stdout << metadata.car_Id;
+                break;
+            case 'H':
+                stdout << metadata.hostZn;
+                break;
+            case 'L':
+                stdout << metadata.layout;
+                break;
+            case 'l':
+                stdout << metadata.leagId;
+                break;
+            case 'n':
+                stdout << fileName;
+                break;
+            case 'S':
+                stdout << metadata.sessId;
+                break;
+            case 's':
+                stdout << metadata.sbseId;
+                break;
+            case 'T':
+                stdout << metadata.track;
+                break;
+            case 't':
+                stdout << metadata.tmstmp;
+                break;
+            case 'U':
+                stdout << metadata.userNm;
+                break;
+            case 'u':
+                stdout << metadata.userId;
+                break;
+            case '%':
+                stdout << '%';
+                break;
+            }
+            state = FMST_PASSTHROUGH;
+            break;
+        }
+
+        c = format[i++];
+    }
+}
+
+void outputMetadata(const std::vector<std::pair<std::filesystem::path, RpyMetadata>> &metadataList, const cxxopts::ParseResult &args, std::ostream &stdout)
+{
     std::string formatStr;
 
     if (args.count("format"))
@@ -17,37 +106,13 @@ void outputMetadata(const std::vector<std::pair<std::filesystem::path, RpyMetada
     }
     else
     {
-        for (const auto &[filePath, metadata] : metadataList)
-        {
-            oss << "File: " << filePath.filename().string() << "\n";
-            oss << "userId: " << metadata.userId << "\n";
-            oss << "carId: " << metadata.car_Id << "\n";
-            oss << "sessionId: " << metadata.sessId << "\n";
-            oss << "subsessionId: " << metadata.sbseId << "\n";
-            oss << "host: " << metadata.hostZn << "\n";
-            oss << "track: " << metadata.track << "\n";
-            oss << "layout: " << metadata.layout << "\n";
-            oss << "userName: " << metadata.userNm << "\n";
-            oss << "timestamp: " << metadata.tmstmp << "\n";
-            oss << "\n";
-        }
-
-        std::cout << oss.str();
-        return;
+        formatStr = "File: %n\\nuserId: %u\\ncarId: %c\\nsessionId: %S\\nsubsessionId: %s\\nhost: %H\\ntrack: %T\\nlayout: %L\\nuserName: %U\\ntimestamp: %t\\n";
     }
 
-    // TODO: User these tags
-    // {"$c", "car_id"},
-    // {"%h", "host/server"},
-    // {"%n", "file_name"},
-    // {"%u", "user_id"},
-    // {"%S", "session_id"},
-    // {"%s", "subsession_id"},
-    // {"%t", "track"},
-    // {"%l", "layout"},
-    // {"%U", "user_name"},
-    // {"%T", "timestamp"},
-    // {"%%", "%"}
-
-    std::cout << oss.str();
+    for (const auto &[filePath, constMetadata] : metadataList)
+    {
+        auto &metadata = const_cast<RpyMetadata &>(constMetadata);
+        outputFormatMetadata(metadata, filePath.filename().string().c_str(), formatStr.c_str(), stdout);
+        stdout << std::endl;
+    }
 }

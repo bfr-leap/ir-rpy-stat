@@ -6,6 +6,19 @@
 
 struct RpyMetadata
 {
+    RpyMetadata() : userId(0),
+                    sessId(0),
+                    sbseId(0),
+                    leagId(0),
+                    car_Id(0)
+    {
+        hostZn[0] = '\0';
+        track[0] = '\0';
+        layout[0] = '\0';
+        userNm[0] = '\0';
+        tmstmp[0] = '\0';
+    }
+    
     uint32_t userId;
     uint32_t sessId;
     uint32_t sbseId;

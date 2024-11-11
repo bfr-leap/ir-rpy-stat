@@ -21,16 +21,18 @@ The `ir-rpy-stat` command displays metadata for `.rpy` replay files from iRacing
 
     **Format sequences for `FORMAT`:**
 
-    | Sequence	| Field Description          |
-    | --------- | -------------------------- |
-    | %n        | File name                  |
-    | %u        | User ID (`user_id`)        |
-    | %s	    | Session ID (`session_id`)  |
-    | %t	    | Track name (`track`)       |
-    | %l	    | Layout (`layout`)          |
-    | %U	    | User name (`user_name`)    |
-    | %T	    | Timestamp (`if available`) |
-    | %%	    | Literal `%` character      |
+    | Sequence	| Field Description     |
+    | --------- | --------------------- |
+    | %c        | Car Id                |
+    | %H        | Host Zone             |
+    | %L        | Layout                |
+    | %l        | League Id             |
+    | %n        | File Name             |
+    | %S        | Session Id            |
+    | %s        | Subsession Id         |
+    | %T        | Track                 |
+    | %t        | Timestamp             |
+    | %%	    | Literal `%` character |
 
     **Example:**
     ```bash
@@ -70,14 +72,18 @@ The `ir-rpy-stat` command displays metadata for `.rpy` replay files from iRacing
 
 ## FORMAT SEQUENCES DETAILS
 
- - `%n`: Displays the file name.
- - `%u`: Displays the user ID (`user_id`).
- - `%s`: Displays the session ID (`session_id`).
- - `%t`: Displays the track name (`track`).
- - `%l`: Displays the layout (`layout`).
- - `%U`: Displays the user name (`user_name`).
- - `%T`: Displays the timestamp (if available).
- - `%%`: Displays a literal `%` character.
+| Sequence	| Field Description     |
+| --------- | --------------------- |
+| %c        | Car Id                |
+| %H        | Host Zone             |
+| %L        | Layout                |
+| %l        | League Id             |
+| %n        | File Name             |
+| %S        | Session Id            |
+| %s        | Subsession Id         |
+| %T        | Track                 |
+| %t        | Timestamp             |
+| %%	    | Literal `%` character |
 
 ## EXIT STATUS
 

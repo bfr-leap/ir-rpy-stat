@@ -18,16 +18,23 @@ int main(int argc, char *argv[])
     try
     {
         auto parseResult = loadOptions(argc, (const char **)argv, std::cout, std::cerr);
-        std::vector<std::filesystem::path> files_to_process = findFilesToProcess(parseResult, std::cout, std::cerr);
+        std::vector<std::filesystem::path> filesToProcess = findFilesToProcess(parseResult, std::cout, std::cerr);
 
         std::vector<std::pair<std::filesystem::path, RpyMetadata>> metadataList;
-        for (const auto &file_path : files_to_process)
+        for (const auto &filePath : filesToProcess)
         {
-            auto metadata = extractMetadata(file_path);
-            metadataList.emplace_back(file_path, metadata);
+            try
+            {
+                auto metadata = extractMetadata(filePath);
+                metadataList.emplace_back(filePath, metadata);
+            }
+            catch (const std::runtime_error &e)
+            {
+                std::cerr << "Error loading metadata: " << e.what() << " :: [" << filePath << ']' << std::endl;
+            }
         }
 
-        outputMetadata(metadataList, parseResult);
+        outputMetadata(metadataList, parseResult, std::cout);
     }
     catch (const cxxopts::exceptions::exception &e)
     {

@@ -92,7 +92,7 @@ RpyMetadata extractMetadata(const std::filesystem::path &file_path)
         throw std::runtime_error("Failed to open file");
     }
 
-    RpyMetadata metadata = {};
+    RpyMetadata metadata;
     uint32_t hdrEntriesCount;
     uint32_t assetListLength;
     char trackLayoutComb[64];

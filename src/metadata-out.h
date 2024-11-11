@@ -6,6 +6,8 @@
 #include "rpy-metadata.h"
 #include "cxxopts.hpp"
 
-void outputMetadata(const std::vector<std::pair<std::filesystem::path, RpyMetadata>> &metadataList, const cxxopts::ParseResult &args);
+void outputMetadata(const std::vector<std::pair<std::filesystem::path, RpyMetadata>> &metadataList, const cxxopts::ParseResult &args, std::ostream &stdout);
+
+void outputFormatMetadata(RpyMetadata &metadata, const char *fileName, const char *format, std::ostream &stdout);
 
 #endif
