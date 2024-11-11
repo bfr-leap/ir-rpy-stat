@@ -2,7 +2,7 @@
 #include <string>
 #include "options-parser.h"
 
-cxxopts::ParseResult loadOptions(int argc, const char *argv[], std::ostream &stdout, std::ostream &stderr)
+cxxopts::ParseResult loadOptions(int argc, const char *argv[], std::ostream &stdoutstrm, std::ostream &stderrstrm)
 {
     cxxopts::Options options("ir-rpy-stat", "Display metadata information for iRacing .rpy replay files.");
 
@@ -23,27 +23,27 @@ cxxopts::ParseResult loadOptions(int argc, const char *argv[], std::ostream &std
 
     if (args.count("help"))
     {
-        stdout << options.help() << std::endl;
+        stdoutstrm << options.help() << std::endl;
         return args;
     }
 
     if (args.count("version"))
     {
-        stdout << "ir-rpy-stat version 0.0.1" << std::endl;
+        stdoutstrm << "ir-rpy-stat version 0.0.1" << std::endl;
         return args;
     }
 
     if (!args.count("files"))
     {
-        stderr << "Error: No input files provided." << std::endl;
-        stdout << options.help() << std::endl;
+        stderrstrm << "Error: No input files provided." << std::endl;
+        stdoutstrm << options.help() << std::endl;
         return args;
     }
 
     return args;
 }
 
-std::vector<std::filesystem::path> findFilesToProcess(const cxxopts::ParseResult &args, std::ostream &stdout, std::ostream &stderr)
+std::vector<std::filesystem::path> findFilesToProcess(const cxxopts::ParseResult &args, std::ostream &stdoutstrm, std::ostream &stderrstrm)
 {
     auto files = args["files"];
     std::vector<std::filesystem::path> filesToProcess;
@@ -65,16 +65,16 @@ std::vector<std::filesystem::path> findFilesToProcess(const cxxopts::ParseResult
             }
             else if (std::filesystem::is_directory(path))
             {
-                stderr << "Warning: Directories are not supported: " << path << std::endl;
+                stderrstrm << "Warning: Directories are not supported: " << path << std::endl;
             }
             else
             {
-                stderr << "Warning: Unsupported file type: " << path << std::endl;
+                stderrstrm << "Warning: Unsupported file type: " << path << std::endl;
             }
         }
         else
         {
-            stderr << "Warning: File does not exist: " << path << std::endl;
+            stderrstrm << "Warning: File does not exist: " << path << std::endl;
         }
     }
 

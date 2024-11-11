@@ -8,7 +8,7 @@ enum FormatterState
     FMST_PERCENT
 };
 
-void outputFormatMetadata(RpyMetadata &metadata, const char *fileName, const char *format, std::ostream &stdout)
+void outputFormatMetadata(RpyMetadata &metadata, const char *fileName, const char *format, std::ostream &stdoutstrm)
 {
     int i = 0;
     char c = format[i++];
@@ -29,17 +29,17 @@ void outputFormatMetadata(RpyMetadata &metadata, const char *fileName, const cha
             }
             else
             {
-                stdout << c;
+                stdoutstrm << c;
             }
             break;
         case FMST_SLASH:
             switch (c)
             {
             case 'n':
-                stdout << std::endl;
+                stdoutstrm << std::endl;
                 break;
             case 't':
-                stdout << '\t';
+                stdoutstrm << '\t';
             }
             state = FMST_PASSTHROUGH;
             break;
@@ -48,40 +48,40 @@ void outputFormatMetadata(RpyMetadata &metadata, const char *fileName, const cha
             switch (c)
             {
             case 'c':
-                stdout << metadata.car_Id;
+                stdoutstrm << metadata.car_Id;
                 break;
             case 'H':
-                stdout << metadata.hostZn;
+                stdoutstrm << metadata.hostZn;
                 break;
             case 'L':
-                stdout << metadata.layout;
+                stdoutstrm << metadata.layout;
                 break;
             case 'l':
-                stdout << metadata.leagId;
+                stdoutstrm << metadata.leagId;
                 break;
             case 'n':
-                stdout << fileName;
+                stdoutstrm << fileName;
                 break;
             case 'S':
-                stdout << metadata.sessId;
+                stdoutstrm << metadata.sessId;
                 break;
             case 's':
-                stdout << metadata.sbseId;
+                stdoutstrm << metadata.sbseId;
                 break;
             case 'T':
-                stdout << metadata.track;
+                stdoutstrm << metadata.track;
                 break;
             case 't':
-                stdout << metadata.tmstmp;
+                stdoutstrm << metadata.tmstmp;
                 break;
             case 'U':
-                stdout << metadata.userNm;
+                stdoutstrm << metadata.userNm;
                 break;
             case 'u':
-                stdout << metadata.userId;
+                stdoutstrm << metadata.userId;
                 break;
             case '%':
-                stdout << '%';
+                stdoutstrm << '%';
                 break;
             }
             state = FMST_PASSTHROUGH;
@@ -92,7 +92,7 @@ void outputFormatMetadata(RpyMetadata &metadata, const char *fileName, const cha
     }
 }
 
-void outputMetadata(const std::vector<std::pair<std::filesystem::path, RpyMetadata>> &metadataList, const cxxopts::ParseResult &args, std::ostream &stdout)
+void outputMetadata(const std::vector<std::pair<std::filesystem::path, RpyMetadata>> &metadataList, const cxxopts::ParseResult &args, std::ostream &stdoutstrm)
 {
     std::string formatStr;
 
@@ -112,7 +112,7 @@ void outputMetadata(const std::vector<std::pair<std::filesystem::path, RpyMetada
     for (const auto &[filePath, constMetadata] : metadataList)
     {
         auto &metadata = const_cast<RpyMetadata &>(constMetadata);
-        outputFormatMetadata(metadata, filePath.filename().string().c_str(), formatStr.c_str(), stdout);
-        stdout << std::endl;
+        outputFormatMetadata(metadata, filePath.filename().string().c_str(), formatStr.c_str(), stdoutstrm);
+        stdoutstrm << std::endl;
     }
 }

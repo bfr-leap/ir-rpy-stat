@@ -4,12 +4,12 @@
 
 TEST(loadOptions, NoArgs)
 {
-    std::ostringstream stdout;
-    std::ostringstream stderr;
+    std::ostringstream stdoutstrm;
+    std::ostringstream stderrstrm;
 
     const char *argv[] = {"/home/amayorga/dev/leap/ir-rpy-stat/build/ir-rpy-stat.tsk"};
 
-    auto parseResult = loadOptions(1, argv, stdout, stderr);
+    auto parseResult = loadOptions(1, argv, stdoutstrm, stderrstrm);
 
     const char *expectedOut = "\
 Display metadata information for iRacing .rpy replay files.\n\
@@ -25,17 +25,17 @@ Usage:\n\
       --files arg   Input files\n\n\
 ";
 
-    EXPECT_EQ(stdout.str(), expectedOut);
+    EXPECT_EQ(stdoutstrm.str(), expectedOut);
 }
 
 TEST(loadOptions, Help)
 {
-    std::ostringstream stdout;
-    std::ostringstream stderr;
+    std::ostringstream stdoutstrm;
+    std::ostringstream stderrstrm;
 
     const char *argv[] = {"/home/amayorga/dev/leap/ir-rpy-stat/build/ir-rpy-stat.tsk", "-h"};
 
-    auto parseResult = loadOptions(2, argv, stdout, stderr);
+    auto parseResult = loadOptions(2, argv, stdoutstrm, stderrstrm);
 
     const char *expectedOut = "\
 Display metadata information for iRacing .rpy replay files.\n\
@@ -51,17 +51,17 @@ Usage:\n\
       --files arg   Input files\n\n\
 ";
 
-    EXPECT_EQ(stdout.str(), expectedOut);
+    EXPECT_EQ(stdoutstrm.str(), expectedOut);
 }
 
 TEST(loadOptions, Help2)
 {
-    std::ostringstream stdout;
-    std::ostringstream stderr;
+    std::ostringstream stdoutstrm;
+    std::ostringstream stderrstrm;
 
     const char *argv[] = {"/home/amayorga/dev/leap/ir-rpy-stat/build/ir-rpy-stat.tsk", "--help"};
 
-    auto parseResult = loadOptions(2, argv, stdout, stderr);
+    auto parseResult = loadOptions(2, argv, stdoutstrm, stderrstrm);
 
     const char *expectedOut = "\
 Display metadata information for iRacing .rpy replay files.\n\
@@ -77,51 +77,51 @@ Usage:\n\
       --files arg   Input files\n\n\
 ";
 
-    EXPECT_EQ(stdout.str(), expectedOut);
+    EXPECT_EQ(stdoutstrm.str(), expectedOut);
 }
 
 #define EXPECTED_VERSION "ir-rpy-stat version 0.0.1\n"
 
 TEST(loadOptions, Version)
 {
-    std::ostringstream stdout;
-    std::ostringstream stderr;
+    std::ostringstream stdoutstrm;
+    std::ostringstream stderrstrm;
 
     const char *argv[] = {"/home/amayorga/dev/leap/ir-rpy-stat/build/ir-rpy-stat.tsk", "-V"};
 
-    auto parseResult = loadOptions(2, argv, stdout, stderr);
+    auto parseResult = loadOptions(2, argv, stdoutstrm, stderrstrm);
 
     const char *expectedOut = EXPECTED_VERSION;
 
-    EXPECT_EQ(stdout.str(), expectedOut);
+    EXPECT_EQ(stdoutstrm.str(), expectedOut);
 }
 
 TEST(loadOptions, Version2)
 {
-    std::ostringstream stdout;
-    std::ostringstream stderr;
+    std::ostringstream stdoutstrm;
+    std::ostringstream stderrstrm;
 
     const char *argv[] = {"/home/amayorga/dev/leap/ir-rpy-stat/build/ir-rpy-stat.tsk", "--version"};
 
-    auto parseResult = loadOptions(2, argv, stdout, stderr);
+    auto parseResult = loadOptions(2, argv, stdoutstrm, stderrstrm);
 
     const char *expectedOut = EXPECTED_VERSION;
 
-    EXPECT_EQ(stdout.str(), expectedOut);
+    EXPECT_EQ(stdoutstrm.str(), expectedOut);
 }
 
 TEST(loadOptions, Files)
 {
-    std::ostringstream stdout;
-    std::ostringstream stderr;
+    std::ostringstream stdoutstrm;
+    std::ostringstream stderrstrm;
 
     const char *argv[] = {"/home/amayorga/dev/leap/ir-rpy-stat/build/ir-rpy-stat.tsk", "./tests/input-files/empty.rpy"};
 
-    auto parseResult = loadOptions(2, argv, stdout, stderr);
+    auto parseResult = loadOptions(2, argv, stdoutstrm, stderrstrm);
 
     const char *expectedOut = "";
     const char *expectedErr = "";
 
-    EXPECT_EQ(stdout.str(), expectedOut);
-    EXPECT_EQ(stderr.str(), expectedErr);
+    EXPECT_EQ(stdoutstrm.str(), expectedOut);
+    EXPECT_EQ(stderrstrm.str(), expectedErr);
 }

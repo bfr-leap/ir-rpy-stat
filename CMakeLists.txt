@@ -3,8 +3,12 @@ project(ir-rpy-stat)
 
 set(CMAKE_CXX_STANDARD 17)
 
-# sudo apt-get install lcov
-option(COVERAGE "Enable coverage reporting" ON)
+if(NOT WIN32)
+    option(COVERAGE "Enable coverage reporting" ON)
+else()
+    option(COVERAGE "Enable coverage reporting" OFF)
+endif()
+
 if(COVERAGE)
     if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" OR "${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
         message(STATUS "Building with code coverage enabled.")
@@ -23,8 +27,6 @@ FetchContent_Declare(
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
 enable_testing()
-
-find_package(fmt REQUIRED)
 
 include_directories(
     ${RDKAFKA_INCLUDE_DIRS}
@@ -58,15 +60,12 @@ add_executable(
 )
 
 target_link_libraries(ir-rpy-stat.tsk 
-    PRIVATE 
-    fmt::fmt
+    PRIVATE
 )
 
 target_link_libraries(
     test-ir-rpy-stat.tsk
     gtest_main
-
-    fmt::fmt
 )
 
 include(GoogleTest)

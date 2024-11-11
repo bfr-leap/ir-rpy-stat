@@ -14,7 +14,10 @@
                 "isDefault": true
             },
             "options": {
-                "cwd": "${workspaceFolder}"
+                "cwd": "${workspaceFolder}",
+                "env": {
+                    "EXECUTABLE_SUFFIX": "${os:win32 ? '.exe' : '.lts'}",
+                }
             }
         }
     ]

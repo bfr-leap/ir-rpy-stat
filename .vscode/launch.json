@@ -2,7 +2,7 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Debug ir-rpy-stat.tsk",
+            "name": "Debug ir-rpy-stat",
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/build/ir-rpy-stat.tsk",
@@ -20,10 +20,13 @@
                 }
             ],
             "preLaunchTask": "build",
-            "miDebuggerPath": "/usr/bin/gdb"
+            "miDebuggerPath": "/usr/bin/gdb",
+            "windows": {
+                "program": "${workspaceFolder}/build/Debug/ir-rpy-stat.exe",
+            }
         },
         {
-            "name": "Test test-ir-rpy-stat.tsk",
+            "name": "Test test-ir-rpy-stat",
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/build/test-ir-rpy-stat.tsk",
@@ -67,7 +70,10 @@
                 }
             ],
             "preLaunchTask": "build",
-            "miDebuggerPath": "/usr/bin/gdb"
+            "miDebuggerPath": "/usr/bin/gdb",
+            "windows": {
+                "program": "${workspaceFolder}/build/Debug/test-ir-rpy-stat.exe",
+            }
         }
     ]
 }
