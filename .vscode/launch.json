@@ -21,6 +21,7 @@
             ],
             "preLaunchTask": "build",
             "windows": {
+                "type": "cppvsdbg",
                 "program": "${workspaceFolder}/build/Debug/ir-rpy-stat.tsk.exe",
             }
         },
@@ -43,6 +44,10 @@
                 }
             ],
             "preLaunchTask": "build",
+            "windows": {
+                "type": "cppvsdbg",
+                "program": "${workspaceFolder}/build/Debug/test-ir-rpy-stat.tsk.exe",
+            }
         },
         {
             "name": "Coverage (Linux Only)",
@@ -69,9 +74,6 @@
             ],
             "preLaunchTask": "build",
             "miDebuggerPath": "/usr/bin/gdb",
-            "windows": {
-                "program": "${workspaceFolder}/build/Debug/test-ir-rpy-stat.tsk.exe",
-            }
         }
     ]
 }
